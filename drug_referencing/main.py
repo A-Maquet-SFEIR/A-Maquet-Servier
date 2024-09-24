@@ -1,15 +1,24 @@
 """
-Main module : 
+Main module :
 Construct JSON structured graph showing references
 
 Retrieve journals referencing most drugs
 """
 
+import argparse
 import statistics
 import drugs
 import pubmeds
 import trials
 import library.common_funtions as com_fun
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--journal-ref',
+                    action='store_true',
+                    dest='journal_ref',
+                    help='Flag to retrieve journals \
+referencing the most drugs')
+args = parser.parse_args()
 
 
 def get_drug_references(
@@ -210,4 +219,5 @@ if __name__ == "__main__":
         drugs_list_refined, pubmed_list_refined, trials_list_refined
     )
 
-    extract_journal_most_drugs(drug_list_references)
+    if args.journal_ref:
+        extract_journal_most_drugs(drug_list_references)
