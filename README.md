@@ -35,6 +35,7 @@ To Run this application, follow these steps:
 2. Create a Python virtual environment:
    1. python3 -m venv venv
    2. source venv/bin/activate
+   3. python3 -m pip install -r requirements.txt
 3. Execute the application:
    1. python3 drug_referencing/main.py [--journal-ref]
 
