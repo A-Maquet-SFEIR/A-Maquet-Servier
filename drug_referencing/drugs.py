@@ -1,7 +1,7 @@
 """
 Module to retrieve and manage drugs
 """
-import lib.common_funtions as com_fun
+import library.common_funtions as com_fun
 
 
 def get_drugs():

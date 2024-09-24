@@ -2,7 +2,7 @@
 Module to retrieve and manage medical publications
 """
 import json
-import lib.common_funtions as com_fun
+import library.common_funtions as com_fun
 
 
 def get_pubmed():

@@ -9,7 +9,7 @@ import statistics
 import drugs
 import pubmeds
 import trials
-import lib.common_funtions as com_fun
+import library.common_funtions as com_fun
 
 
 def get_drug_references(
@@ -198,7 +198,7 @@ def extract_journal_most_drugs(references_list):
     # Retrieve the most common ones
     journal_ref_most_drugs = statistics.multimode(all_drug_journal_list)
     com_fun.write_logs(
-        f"Journal referencing the most drugs are {journal_ref_most_drugs}",
+        f"Journals referencing the most drugs are {journal_ref_most_drugs}",
         "INFO")
 
 
