@@ -37,7 +37,7 @@ To Run this application, follow these steps:
    2. source venv/bin/activate
    3. python3 -m pip install -r requirements.txt
 3. Execute the application:
-   1. python3 drug_referencing/main.py [--journal-ref]
+   1. python3 drug_referencing/main.py [--journal-ref] [--drug-ref-journal=drug_name_or_code]
 
 You can access to the helper with the following command:
 python3 drug_referencing/main.py --help
@@ -45,6 +45,7 @@ python3 drug_referencing/main.py --help
 **Flags:**
 
 * --journal-ref: Adding this flag while running the application will also execute the function intended to retrieve which journals mention the most drugs
+* --drug-ref-journal: The argument requires a drug code or name as value and triggers the function that return all drugs that are mentioned in journals mentioned in medical publications of the given drug
 
 ## Expected result
 
