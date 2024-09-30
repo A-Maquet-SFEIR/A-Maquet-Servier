@@ -18,6 +18,12 @@ parser.add_argument('--journal-ref',
                     dest='journal_ref',
                     help='Flag to retrieve journals \
 referencing the most drugs')
+parser.add_argument('--drug-ref-journal',
+                    action='store',
+                    dest='drug_ref_journal',
+                    help='Flag to drugs that are \
+mentioned in the same journal of a given drug \
+but only for medical publications')
 args = parser.parse_args()
 
 
@@ -211,6 +217,37 @@ def extract_journal_most_drugs(references_list):
         "INFO")
 
 
+
+def drugs_ref_same_journal_pubmed(references_list, drug):
+    """
+    Find drugs referenced in the same journals mentioned
+    by medical publication than a given drug
+
+    Inputs:
+    - references_list (str) : List of the drugs and their references
+    - drug (str) : drug for which we want drugs mentioned by same journals
+    """
+    list_journ_diff = []
+    list_drug_same_journal = []
+    article_ref_drug = [d['article_references']['pubmed'] for d in references_list if d['drug_name'] in drug or d['drug_atccode'] in drug]
+    for journal_ref_drug in article_ref_drug[0]:
+        for journal_title_drug in journal_ref_drug['journal_references']:
+            list_journ_diff.append(journal_title_drug['journal'])
+
+    for all_drugs in references_list:
+        for all_pubmed in all_drugs['article_references']['pubmed']:
+            for all_articles in all_pubmed['journal_references']:
+                if all_articles['journal'] in list_journ_diff:
+                    list_drug_same_journal.append(all_drugs['drug_name'])
+    
+    list_drug_same_journal=list(set(list_drug_same_journal))
+    com_fun.write_logs(
+        f"Drugs referenced in the same journal than {drug} : {list_drug_same_journal}",
+        "INFO")
+
+    return list_drug_same_journal
+
+
 if __name__ == "__main__":
     drugs_list_refined = drugs.get_drugs()
     pubmed_list_refined = pubmeds.get_pubmed()
@@ -221,3 +258,6 @@ if __name__ == "__main__":
 
     if args.journal_ref:
         extract_journal_most_drugs(drug_list_references)
+    
+    if args.drug_ref_journal:
+        drugs_ref_same_journal_pubmed(drug_list_references, args.drug_ref_journal)
